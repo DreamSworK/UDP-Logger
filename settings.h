@@ -1,0 +1,56 @@
+#ifndef SETTINGS_WINDOW_H
+#define SETTINGS_WINDOW_H
+
+#include <QtGui>
+#include <QWidget>
+
+QT_BEGIN_NAMESPACE
+class QLabel;
+class QCheckBox;
+class QPushButton;
+class QInputDialog;
+QT_END_NAMESPACE
+
+
+class ConfigLayout : public QGridLayout
+{
+    Q_OBJECT
+public:
+    ConfigLayout(QVariant *value, const QString &text);
+private slots:
+    void setValue();
+private:
+    QString text;
+    QLabel *valueLabel;
+    QVariant *value;
+};
+
+
+class ConfigCheckBox : public QCheckBox
+{
+    Q_OBJECT
+public:
+    ConfigCheckBox(QVariant *value, const QString &text);
+private slots:
+    void setValue(int state);
+private:
+    QVariant *value;
+};
+
+
+class SettingsWindow : public QWidget
+{
+    Q_OBJECT
+public:
+    SettingsWindow(QWidget *parent);
+    QMap<QString, QVariant> values;
+    void loadSettings();
+    void saveSettings();
+protected:
+    void closeEvent(QCloseEvent *event);
+private:
+    QSettings *settings;
+    QMainWindow *mainWindow;
+};
+
+#endif
