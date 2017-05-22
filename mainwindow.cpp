@@ -195,5 +195,5 @@ void MainWindow::showSettings()
 
 void MainWindow::about() {
     QMessageBox::about(this, "About Application",
-                       QString("Application: %1\n\nAuthor: %2\n\nVersion: %3").arg(APP).arg(ORG).arg(VER));
+                       QString("Application: %1\nAuthor: %2\nVersion: %3").arg(APP).arg(ORG).arg(VER));
 }

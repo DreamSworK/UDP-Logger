@@ -11,4 +11,8 @@
 
 #define ICON(name) QIcon(":/images/"name".png")
 
+#if defined(_MSC_VER)
+    #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+#endif
+
 #endif
