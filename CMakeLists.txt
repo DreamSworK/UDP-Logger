@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 3.5)
 project(Logger)
 
 set(CMAKE_CXX_STANDARD 98)
@@ -16,6 +16,9 @@ if(WIN32)
 elseif(APPLE)
     set(CMAKE_OSX_ARCHITECTURES "x86_64")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions")
+else()
+    set(CMAKE_INSTALL_RPATH "$ORIGIN")
+    set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 endif()
 
 find_package(Qt4 REQUIRED QtCore QtGui QtNetwork)

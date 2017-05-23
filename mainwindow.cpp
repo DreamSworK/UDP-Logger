@@ -18,6 +18,7 @@ MainWindow::MainWindow()
     createMenus();
     createToolBars();
     createStatusBar();
+    setWindowTitle(APP);
 
     settings = new SettingsWindow(this);
     resize(settings->values["mainWindowSize"].toSize());
@@ -174,7 +175,7 @@ void MainWindow::stop() {
     statusBar()->showMessage(QString("%1 is stopped").arg(APP), 2000);
     startAction->setEnabled(true);
     stopAction->setEnabled(false);
-    setWindowTitle("");
+    setWindowTitle(APP);
 }
 
 void MainWindow::processPendingDatagrams()

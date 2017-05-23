@@ -53,7 +53,7 @@ void SettingsWindow::loadSettings() {
     values["mainWindowSize"] = settings->value("mainWindowSize", QSize(400, 400));
     values["lastDir"] = settings->value("lastDir", QApplication::applicationDirPath());
     values["autoStart"] = settings->value("autoStart", false);
-    values["udpPort"] = settings->value("udpPort", 49152);
+    values["udpPort"] = settings->value("udpPort", 49152).toInt();
 }
 
 void SettingsWindow::saveSettings() {
