@@ -1,7 +1,7 @@
 # UDP Logger
 Very simple, minimalistic cross-platform UDP Logger like _**syslog**_ (Unix, Linux, MacOS) or _**DebugView**_ (Windows)
 
-## About
+## About:
 
 This is a very simple implementation of a UDP Log server with GUI. The program is written using Qt4, a cross-platform framework. The program listens a UDP port and displays the information that it receives from a client.
 
