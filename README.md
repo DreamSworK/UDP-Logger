@@ -15,4 +15,4 @@ An alternative would be to use your own UDP Logger and send debug messages to it
 
 ## Examples:
 
-Some examples how to send debug messages to UDP Logger you can find in _**examples**_ folder.
+Some examples how to send debug messages to UDP Logger you can find in [examples](examples) folder.
