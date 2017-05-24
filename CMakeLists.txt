@@ -58,19 +58,19 @@ elseif(APPLE)
     set(MACOSX_BUNDLE_LONG_VERSION_STRING ${VERSION})
     set(MACOSX_BUNDLE_BUNDLE_VERSION ${VERSION})
 
-    string(TOLOWER "${CMAKE_PROJECT_NAME}.icns" MACOSX_BUNDLE_ICON_FILE)
-    set_source_files_properties(images/${MACOSX_BUNDLE_ICON_FILE} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
-    list(APPEND RESOURCES images/${MACOSX_BUNDLE_ICON_FILE})
+    string(TOLOWER "images/${CMAKE_PROJECT_NAME}.icns" ICON_FILE)
+    get_filename_component(MACOSX_BUNDLE_ICON_FILE ${ICON_FILE} NAME)
+    set_source_files_properties(${ICON_FILE} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
 else()
     set(CMAKE_INSTALL_RPATH "$ORIGIN")
     set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 endif()
 
-add_executable(${CMAKE_PROJECT_NAME} ${EXECUTABLE_TYPE} ${SOURCE_FILES} ${UI} ${RESOURCES})
+add_executable(${CMAKE_PROJECT_NAME} ${EXECUTABLE_TYPE} ${SOURCE_FILES} ${UI} ${RESOURCES} ${ICON_FILE})
 target_link_libraries(${CMAKE_PROJECT_NAME} ${QT_LIBRARIES})
 
 if(APPLE)
     add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-            COMMAND ${CMAKE_SOURCE_DIR}/tools/macdeployqt ${MACOSX_BUNDLE_PATH} -no-plugins
+            COMMAND ${CMAKE_SOURCE_DIR}/tools/macdeployqt ${MACOSX_BUNDLE_PATH}
             COMMENT "Run Mac deployment tool: ${MACOSX_BUNDLE_PATH}")
 endif()
