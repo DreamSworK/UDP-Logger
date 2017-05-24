@@ -18,7 +18,7 @@ MainWindow::MainWindow()
     createMenus();
     createToolBars();
     createStatusBar();
-    setWindowTitle(APP);
+    setWindowTitle(APPLICATION);
 
     settings = new SettingsWindow(this);
     resize(settings->values["mainWindowSize"].toSize());
@@ -37,7 +37,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 bool MainWindow::save()
 {
-    QString fileName = QFileDialog::getSaveFileName(this, APP, settings->values["lastDir"].toString(),
+    QString fileName = QFileDialog::getSaveFileName(this, APPLICATION, settings->values["lastDir"].toString(),
                                                     "Logs (*.log);;Text files (*.txt);;Any files (*)");
     if (fileName.isEmpty())
         return false;
@@ -71,11 +71,11 @@ void MainWindow::createActions()
     connect(clearAction, SIGNAL(triggered()), textEdit, SLOT(clear()));
 
     startAction = new QAction(ICON("start"), "Start", this);
-    startAction->setStatusTip(QString("Start ") + APP);
+    startAction->setStatusTip(QString("Start ") + APPLICATION);
     connect(startAction, SIGNAL(triggered()), this, SLOT(start()));
 
     stopAction = new QAction(ICON("stop"), "Stop", this);
-    stopAction->setStatusTip(QString("Stop ") + APP);
+    stopAction->setStatusTip(QString("Stop ") + APPLICATION);
     stopAction->setEnabled(false);
     connect(stopAction, SIGNAL(triggered()), this, SLOT(stop()));
 
@@ -135,7 +135,7 @@ bool MainWindow::saveChanges()
 {
     if (textEdit->document()->isModified()) {
         QMessageBox::StandardButton button;
-        button = QMessageBox::warning(this, APP, "The log output has been modified.\n" "Do you want to save changes?",
+        button = QMessageBox::warning(this, APPLICATION, "The log output has been modified.\n" "Do you want to save changes?",
                                       QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
         if (button == QMessageBox::Save)
             return save();
@@ -149,7 +149,7 @@ bool MainWindow::saveFile(const QString &fileName)
 {
     QFile file(fileName);
     if (!file.open(QFile::WriteOnly | QFile::Text)) {
-        QMessageBox::warning(this, APP, QString("Cannot write file %1:\n%2.").arg(fileName).arg(file.errorString()));
+        QMessageBox::warning(this, APPLICATION, QString("Cannot write file %1:\n%2.").arg(fileName).arg(file.errorString()));
         return false;
     }
 
@@ -165,17 +165,17 @@ bool MainWindow::saveFile(const QString &fileName)
 void MainWindow::start() {
     udpSocket->bind((quint16) settings->values["udpPort"].toInt(), QUdpSocket::ShareAddress);
     statusBar()->showMessage(QString("%1 UDP port is listening").arg(settings->values["udpPort"].toInt()), 2000);
-    setWindowTitle(QString("%1 is running").arg(APP));
+    setWindowTitle(QString("%1 is running").arg(APPLICATION));
     startAction->setEnabled(false);
     stopAction->setEnabled(true);
 }
 
 void MainWindow::stop() {
     udpSocket->close();
-    statusBar()->showMessage(QString("%1 is stopped").arg(APP), 2000);
+    statusBar()->showMessage(QString("%1 is stopped").arg(APPLICATION), 2000);
     startAction->setEnabled(true);
     stopAction->setEnabled(false);
-    setWindowTitle(APP);
+    setWindowTitle(APPLICATION);
 }
 
 void MainWindow::processPendingDatagrams()
@@ -195,6 +195,7 @@ void MainWindow::showSettings()
 }
 
 void MainWindow::about() {
-    QMessageBox::about(this, "About Application",
-                       QString("Application: %1\nAuthor: %2\nVersion: %3").arg(APP).arg(ORG).arg(VER));
+    QMessageBox::about(this, "About",
+                       QString("Application: %1\nAuthor: %2\nVersion: %3")
+                               .arg(APPLICATION).arg(ORGANIZATION).arg(VERSION));
 }

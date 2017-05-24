@@ -15,7 +15,7 @@ ConfigLayout::ConfigLayout(QVariant *value, const QString &text) : QGridLayout()
 
 void ConfigLayout::setValue() {
     if (value->type() == QVariant::Int) {
-        int intValue = QInputDialog::getInt(valueLabel, APP, text, value->toInt());
+        int intValue = QInputDialog::getInt(valueLabel, APPLICATION, text, value->toInt());
         valueLabel->setText(QString("%1").arg(intValue));
         *value = intValue;
     }
@@ -35,14 +35,14 @@ void ConfigCheckBox::setValue(int state) {
 SettingsWindow::SettingsWindow(QWidget *parent) : QWidget(parent), mainWindow((QMainWindow*)parent) {
     setWindowTitle("Settings");
     setWindowFlags(Qt::Tool | Qt::FramelessWindowHint);
-    settings = new QSettings(ORG, APP);
+    settings = new QSettings(ORGANIZATION, APPLICATION);
     loadSettings();
 
     QPushButton *closeButton = new QPushButton("Close");
     connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
 
     QVBoxLayout *settingsLayout = new QVBoxLayout;
-    settingsLayout->addWidget(new ConfigCheckBox(&values["autoStart"], QString("Auto start ") + APP));
+    settingsLayout->addWidget(new ConfigCheckBox(&values["autoStart"], QString("Auto start ") + APPLICATION));
     settingsLayout->addLayout(new ConfigLayout(&values["udpPort"], "UDP Port:"));
     settingsLayout->addWidget(closeButton);
     setLayout(settingsLayout);

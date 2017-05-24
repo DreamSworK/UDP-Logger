@@ -5,9 +5,9 @@
 #include <QtNetwork>
 #include <QtGui>
 
-#define ORG "DreamSworK"
-#define APP "UDP Logger"
-#define VER "0.0.5"
+#define ORGANIZATION "DreamSworK"
+#define APPLICATION "UDP Logger"
+#define VERSION "0.0.5"
 
 #define ICON(name) QIcon(":/images/"name".png")
 
