@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "settings.h"
+#include "TextEdit.h"
 
 QT_BEGIN_NAMESPACE
 class QMenu;
@@ -39,7 +40,7 @@ private:
     bool saveFile(const QString &fileName);
 
     QUdpSocket *udpSocket;
-    QPlainTextEdit *textEdit;
+    TextEdit *textEdit;
 
     QMenu *fileMenu;
     QMenu *editMenu;
@@ -51,6 +52,7 @@ private:
     QToolBar *runToolBar;
     QToolBar *configToolBar;
 
+public:
     QAction *saveAction;
     QAction *exitAction;
     QAction *copyAction;

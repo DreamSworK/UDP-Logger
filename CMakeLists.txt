@@ -27,7 +27,9 @@ set(SOURCE_FILES
         mainwindow.h
         mainwindow.cpp
         settings.h
-        settings.cpp)
+        settings.cpp
+        TextEdit.cpp
+        TextEdit.h)
 
 file(GLOB_RECURSE UI_FILES *.ui)
 qt4_wrap_ui(UI ${UI_FILES})

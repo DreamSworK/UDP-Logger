@@ -6,11 +6,7 @@ MainWindow::MainWindow()
     udpSocket = new QUdpSocket(this);
     connect(udpSocket, SIGNAL(readyRead()), this, SLOT(processPendingDatagrams()));
 
-    textEdit = new QPlainTextEdit;
-    textEdit->setCenterOnScroll(true);
-    textEdit->setLineWrapMode(QPlainTextEdit::NoWrap);
-    textEdit->setUndoRedoEnabled(false);
-    textEdit->setReadOnly(true);
+    textEdit = new TextEdit(this);
     setCentralWidget(textEdit);
     setUnifiedTitleAndToolBarOnMac(true);
 
@@ -69,6 +65,7 @@ void MainWindow::createActions()
     clearAction->setShortcuts(QKeySequence::Delete);
     clearAction->setStatusTip("Clear the log window");
     connect(clearAction, SIGNAL(triggered()), textEdit, SLOT(clear()));
+    textEdit->addContextMenu(clearAction);
 
     startAction = new QAction(ICON("start"), "Start", this);
     startAction->setStatusTip(QString("Start ") + APPLICATION);
