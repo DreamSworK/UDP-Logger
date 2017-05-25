@@ -13,6 +13,8 @@ Sometimes we don’t want to use a file logging system. And we can just send deb
 
 An alternative would be to use your own UDP Logger and send debug messages to it. This option is more portable because there are functions for sending simple UDP messages in most languages. Sending packets to a UDP port is very fast compared to saving them to a file or sending them to a TCP port because there is no need to establish a connection with the server. An added advantage is that you don’t need to create a file for logging.
 
+Also the function ```OutputDebugString``` has the length limit of _**4092**_ bytes with a NUL byte at the end. And the message length of ```syslog``` must not exceed _**1024**_ bytes. However, if you use your own _**UDP Logger**_ the maximum size of a UDP message is _**65507**_ bytes, that's more than enough.
+
 ## Examples:
 
 Some examples how to send debug messages to UDP Logger you can find in [examples](examples) folder.
