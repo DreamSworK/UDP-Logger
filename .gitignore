@@ -1,4 +1,5 @@
-/.idea
+.idea
 /bin
 /cmake-build-debug
 .DS_Store
+__pycache__
