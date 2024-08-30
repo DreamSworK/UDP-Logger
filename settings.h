@@ -2,7 +2,12 @@
 #define SETTINGS_WINDOW_H
 
 #include <QtGui>
-#include <QWidget>
+#include <QGridLayout>
+#include <QCheckBox>
+#include <QSettings>
+#include <QMainWindow>
+#include <QString>
+#include <QMap>
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -18,7 +23,7 @@ class ConfigLayout : public QGridLayout
 public:
     ConfigLayout(QVariant *value, const QString &text);
 private slots:
-    void setValue();
+    void setValue() const;
 private:
     QString text;
     QLabel *valueLabel;
@@ -32,7 +37,7 @@ class ConfigCheckBox : public QCheckBox
 public:
     ConfigCheckBox(QVariant *value, const QString &text);
 private slots:
-    void setValue(int state);
+    void setValue(int state) const;
 private:
     QVariant *value;
 };

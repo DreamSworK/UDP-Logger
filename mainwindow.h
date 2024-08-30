@@ -1,7 +1,6 @@
 #ifndef MAIN_WINDOW_H
 #define MAIN_WINDOW_H
 
-#include <QMainWindow>
 #include "settings.h"
 #include "TextEdit.h"
 
@@ -28,14 +27,14 @@ private slots:
     void start();
     void stop();
     void about();
-    void showSettings();
-    void processPendingDatagrams();
+    void showSettings() const;
+    void processPendingDatagrams() const;
 
 private:
     void createActions();
     void createMenus();
     void createToolBars();
-    void createStatusBar();
+    void createStatusBar() const;
     bool saveChanges();
     bool saveFile(const QString &fileName);
 
