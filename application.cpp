@@ -5,10 +5,10 @@ int main(int argc, char *argv[])
 {
     Q_INIT_RESOURCE(application);
     QApplication app(argc, argv);
-    app.setOrganizationName(ORGANIZATION);
-    app.setApplicationName(APPLICATION);
-    app.setWindowIcon(ICON("logger"));
+    QApplication::setOrganizationName(ORGANIZATION);
+    QApplication::setApplicationName(APPLICATION);
+    QApplication::setWindowIcon(ICON("logger"));
     MainWindow udpLogger;
     udpLogger.show();
-    return app.exec();
+    return QApplication::exec();
 }

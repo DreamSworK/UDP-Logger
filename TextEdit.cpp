@@ -14,7 +14,7 @@ void TextEdit::addContextMenu(QAction *action) {
 
 void TextEdit::contextMenuEvent(QContextMenuEvent *event) {
     QMenu *menu = createStandardContextMenu();
-    if (contextMenuActions.length()) {
+    if (contextMenuActions.empty()) {
         menu->addSeparator();
         foreach(QAction* action, contextMenuActions) {
             menu->addAction(action);

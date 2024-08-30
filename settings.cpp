@@ -1,21 +1,25 @@
 #include "settings.h"
 #include "application.h"
 
+#include <QInputDialog>
+#include <QPushButton>
+#include <QLabel>
+
 ConfigLayout::ConfigLayout(QVariant *value, const QString &text) : QGridLayout(), value(value), text(text) {
-    QPushButton *setButton = new QPushButton(text);
-    connect(setButton, SIGNAL(clicked()), this, SLOT(setValue()));
+    auto *button = new QPushButton(text);
+    connect(button, &QPushButton::clicked, this, &ConfigLayout::setValue);
 
     valueLabel = new QLabel;
     valueLabel->setFrameStyle(QFrame::Sunken | QFrame::Panel);
     valueLabel->setText(value->toString());
 
-    this->addWidget(setButton, 0, 0);
+    this->addWidget(button, 0, 0);
     this->addWidget(valueLabel, 0, 1);
 }
 
-void ConfigLayout::setValue() {
+void ConfigLayout::setValue() const {
     if (value->type() == QVariant::Int) {
-        int intValue = QInputDialog::getInt(valueLabel, APPLICATION, text, value->toInt());
+        const int intValue = QInputDialog::getInt(valueLabel, APPLICATION, text, value->toInt());
         valueLabel->setText(QString("%1").arg(intValue));
         *value = intValue;
     }
@@ -24,11 +28,11 @@ void ConfigLayout::setValue() {
 
 ConfigCheckBox::ConfigCheckBox(QVariant *value, const QString &text) : QCheckBox(text), value(value) {
     setChecked(value->toBool());
-    connect(this, SIGNAL(stateChanged(int)), this, SLOT(setValue(int)));
+    connect(this, &ConfigCheckBox::stateChanged, this, &ConfigCheckBox::setValue);
 }
 
-void ConfigCheckBox::setValue(int state) {
-    *value = (bool) state;
+void ConfigCheckBox::setValue(const int state) const {
+    *value = static_cast<bool>(state);
 }
 
 
@@ -38,13 +42,13 @@ SettingsWindow::SettingsWindow(QWidget *parent) : QWidget(parent), mainWindow((Q
     settings = new QSettings(ORGANIZATION, APPLICATION);
     loadSettings();
 
-    QPushButton *closeButton = new QPushButton("Close");
-    connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
+    auto *button = new QPushButton("Close");
+    connect(button, &QPushButton::clicked, this, &SettingsWindow::close);
 
-    QVBoxLayout *settingsLayout = new QVBoxLayout;
+    auto *settingsLayout = new QVBoxLayout;
     settingsLayout->addWidget(new ConfigCheckBox(&values["autoStart"], QString("Auto start ") + APPLICATION));
     settingsLayout->addLayout(new ConfigLayout(&values["udpPort"], "UDP Port:"));
-    settingsLayout->addWidget(closeButton);
+    settingsLayout->addWidget(button);
     setLayout(settingsLayout);
 }
 

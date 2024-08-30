@@ -7,9 +7,9 @@
 
 #define ORGANIZATION "DreamSworK"
 #define APPLICATION "UDP Logger"
-#define VERSION "0.0.5"
+#define VERSION "0.0.6"
 
-#define ICON(name) QIcon(":/images/"name".png")
+#define ICON(name) QIcon(":/images/" name ".png")
 
 #if defined(_MSC_VER)
     #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
