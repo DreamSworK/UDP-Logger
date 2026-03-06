@@ -37,7 +37,7 @@ class ConfigCheckBox : public QCheckBox
 public:
     ConfigCheckBox(QVariant *value, const QString &text);
 private slots:
-    void setValue(int state) const;
+    void setValue(Qt::CheckState state) const;
 private:
     QVariant *value;
 };

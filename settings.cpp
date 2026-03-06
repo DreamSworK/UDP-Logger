@@ -1,9 +1,9 @@
 #include "settings.h"
 #include "application.h"
-
 #include <QInputDialog>
 #include <QPushButton>
 #include <QLabel>
+#include <QMetaType>
 
 ConfigLayout::ConfigLayout(QVariant *value, const QString &text) : QGridLayout(), value(value), text(text) {
     auto *button = new QPushButton(text);
@@ -18,25 +18,23 @@ ConfigLayout::ConfigLayout(QVariant *value, const QString &text) : QGridLayout()
 }
 
 void ConfigLayout::setValue() const {
-    if (value->type() == QVariant::Int) {
+    if (value->metaType().id() == QMetaType::Int) {
         const int intValue = QInputDialog::getInt(valueLabel, APPLICATION, text, value->toInt());
         valueLabel->setText(QString("%1").arg(intValue));
         *value = intValue;
     }
 }
 
-
 ConfigCheckBox::ConfigCheckBox(QVariant *value, const QString &text) : QCheckBox(text), value(value) {
     setChecked(value->toBool());
-    connect(this, &ConfigCheckBox::stateChanged, this, &ConfigCheckBox::setValue);
+    connect(this, &ConfigCheckBox::checkStateChanged, this, &ConfigCheckBox::setValue);
 }
 
-void ConfigCheckBox::setValue(const int state) const {
-    *value = static_cast<bool>(state);
+void ConfigCheckBox::setValue(const Qt::CheckState state) const {
+    *value = (state == Qt::Checked);
 }
 
-
-SettingsWindow::SettingsWindow(QWidget *parent) : QWidget(parent), mainWindow((QMainWindow*)parent) {
+SettingsWindow::SettingsWindow(QWidget *parent) : QWidget(parent), mainWindow(qobject_cast<QMainWindow*>(parent)) {
     setWindowTitle("Settings");
     setWindowFlags(Qt::Tool | Qt::FramelessWindowHint);
     settings = new QSettings(ORGANIZATION, APPLICATION);

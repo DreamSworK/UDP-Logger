@@ -3,7 +3,7 @@ Very simple, minimalistic cross-platform UDP Logger like _**syslog**_ (Unix, Lin
 
 ## About:
 
-This is a very simple implementation of a UDP Log server with GUI. The program is written using Qt4, a cross-platform framework. The program listens a UDP port and displays the information that it receives from a client.
+This is a very simple implementation of a UDP Log server with GUI. The program is written using Qt6, a cross-platform framework. The program listens a UDP port and displays the information that it receives from a client.
 
 > You can use the source code as template for your own logger or a server like application.
 
